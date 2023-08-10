@@ -4,7 +4,7 @@ import numpy as np
 frameWidth = 640    #Frame Width
 franeHeight = 480   # Frame Height
 
-plateCascade = cv2.CascadeClassifier("D:\SACHIN\haarcascade_russian_plate_number.xml")
+plateCascade = cv2.CascadeClassifier(r"C:\Users\NAGARAJU\Desktop\sample\Number_Plate_Detection\haarcascade_russian_plate_number.xml")
 minArea = 500
 
 cap =cv2.VideoCapture(0)
@@ -28,10 +28,15 @@ while True:
             imgRoi = img[y:y+h,x:x+w]
             cv2.imshow("ROI",imgRoi)
     cv2.imshow("Result",img)
-    if cv2.waitKey(1) & 0xFF ==ord('s'):
-        cv2.imwrite("D:\SACHIN\cascade\IMAGES"+str(count)+".jpg",imgRoi)
-        cv2.rectangle(img,(0,200),(640,300),(0,255,0),cv2.FILLED)
-        cv2.putText(img,"Scan Saved",(15,265),cv2.FONT_HERSHEY_COMPLEX,2,(0,0,255),2)
-        cv2.imshow("Result",img)
+    if cv2.waitKey(1) & 0xFF == ord('s'):
+        cv2.imwrite(r"D:\numberplate\images" + str(count) + ".jpg", imgRoi)
+        saved_img = img.copy()  # Create a copy of the image for displaying the message
+        cv2.rectangle(saved_img, (0, 200), (640, 300), (0, 255, 0), cv2.FILLED)
+        cv2.putText(saved_img, "Scan Saved", (15, 265), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 255), 2)
+        cv2.imshow("Result", saved_img)  # Display the image with the message
         cv2.waitKey(500)
-        count+=1
+        count += 1
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+
